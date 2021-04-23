@@ -248,22 +248,25 @@ and open the template in the editor.
                         var estado = document.getElementById('seleccionarEstado').value;
 
 
-                        var datos = {"id_perfil": perfil, "usuario": "usuario", "clave": "123", "nombres": nombres, "ap_paterno": aPaterno, "ap_materno": aMaterno, "email": email, "estado": estado};
+                        //var datos = {id_perfil: perfil, usuario: usuario, "clave": "123", nombres: nombres, ap_paterno: aPaterno, ap_materno: aMaterno, email: email, estado: estado};
 
 
-
-
-
+                        //console.log(datos);
                         $.ajax({
-                            url: "../controller/AgregarUsuario.php",
-                            type: 'post', // performing a POST request
-                            data: datos,
-                            dataType: 'json',
-                            success: function (data)
-                            {
+                            url: '../controller/AgregarUsuario.php',
+                            type: 'POST',
+                            data: {
+                               'id_perfil': perfil, 'usuario': usuario, 'clave': "123", 'nombres': nombres, 'ap_paterno': aPaterno, 'ap_materno': aMaterno, 'email': email, 'estado': estado
+                            },
+                            success: function (result) { //we got the response
                                 Swal.fire('Usuario agregado');
+                                alert(result);
+                            },
+                            error: function (jqxhr, status, exception) {
+                                Swal.fire('Hubo un error');
                             }
-                        });
+                        })
+
 
 
 

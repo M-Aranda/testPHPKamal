@@ -60,7 +60,6 @@ class Data {
 
         while ($reg = $rs->fetch_array()) {
 
-
             $usuario = new Usuario($reg[0], $this->getPerfil($reg[1]), $reg[2], $reg[3], $reg[4], $reg[5], $reg[6], $reg[7], $reg[8]);
             $usuarios[] = $usuario;
         }
@@ -86,12 +85,13 @@ class Data {
     }
 
     public function crearUsuario($usuario) {
-        $query = "INSERT INTO usuario (id_perfil, usuario, clave, nombres, ap_paterno, ap_materno, email, estado) VALUES ('$usuario->getPerfil()','$usuario->getUsuario()','$usuario->getClave()','$usuario->getNombres()','$usuario->getAp_paterno()','$usuario->getAp_materno()','$usuario->getEmail()','$usuario->getEstado()');";
+        $query = "INSERT INTO USUARIO (id_perfil, usuario, clave, nombres, ap_paterno, ap_materno, email, estado) VALUES (" . $usuario->getPerfil() . ",'" . $usuario->getUsuario() . "','" . $usuario->getClave() . "','" . $usuario->getNombres() . "','" . $usuario->getAp_paterno() . "','" . $usuario->getAp_materno() . "','" . $usuario->getEmail() . "'," . $usuario->getEstado() . ");";
+
         $this->usarConexion($query);
     }
 
     public function modificarUsuario($usuario) {
-        $query = "UPDATE USUARIO SET id_perfil = '$usuario->getPerfil()->getId_perfil', usuario = '$usuario->getUsuario()', clave = '$usuario->getClave()', nombres = '$usuario->getNombres()', ap_paterno = '$usuario->getgetAp_paterno()', ap_materno = '$usuario->getAp_materno', email = '$usuario->getEmail()', estado = '$usuario->getEstado()'  WHERE id_usuario = '$usuario->getId_usuario()' ;";
+        $query = "UPDATE  USUARIO SET id_perfil=" . $usuario->getPerfil() . ", usuario='" . $usuario->getUsuario() . "',clave='" . $usuario->getClave() . "',nombres='" . $usuario->getNombres() . "',ap_paterno='" . $usuario->getAp_paterno() . "',ap_materno='" . $usuario->getAp_materno() . "',email='" . $usuario->getEmail() . "',estado=" . $usuario->getEstado() . ");";
         $this->usarConexion($query);
     }
 

@@ -16,7 +16,6 @@ $email = isset($_REQUEST['email'])?$_REQUEST['email']:"";
 $estado = isset($_REQUEST['estado'])?$_REQUEST['estado']:"";
 
 
-
 $u = new Usuario(1,$id_perfil,$usuario,$clave,$nombres,$ap_paterno,$ap_materno,$email, $estado);
 
 $data->crearUsuario($u);
