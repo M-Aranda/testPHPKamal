@@ -40,7 +40,7 @@ public function getId_usuario() {
 }
 
 public function getPerfil() {
-    return $this->$perfil;
+    return $this->perfil;
 }
 
 public function getUsuario() {

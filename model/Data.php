@@ -62,8 +62,8 @@ class Data {
 
         while ($reg = $rs->fetch_array()) {
 
-            $perfil = null;
-            $usuario = new Usuario($reg[0],getPerfil($reg[1]), $reg[2], $reg[3], $reg[4], $reg[5], $reg[6], $reg[7], $reg[8]);
+          
+            $usuario = new Usuario($reg[0], $this->getPerfil($reg[1]), $reg[2], $reg[3], $reg[4], $reg[5], $reg[6], $reg[7], $reg[8]);
             $usuarios[] = $usuario;
         }
 
