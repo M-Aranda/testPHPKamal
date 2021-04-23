@@ -72,6 +72,8 @@ and open the template in the editor.
 
         <div class="box">
             <h2  id="TituloMantenedor" style="color:white"> Mantenedor </h2>
+            
+            <button onclick="agregarUsuario()">Agregar usuario</button>
 
             <table id="tablaUsuarios" class="display">
 <!--                <thead>
@@ -133,8 +135,6 @@ console.log(dataSet)
 
 
 
- 
-
 $(document).ready(function() {
     $('#tablaUsuarios').DataTable( {
         data: dataSet,
@@ -146,7 +146,7 @@ $(document).ready(function() {
             { data: "Email" },
             { data: "Perfil Usuario" },
             { data: "Estado" },
-            { title: "Opción" }
+            { data: "id_usuario" }
         ],
           "columnDefs": [
     { "title": "Usuario", "targets": 0 },
@@ -156,11 +156,19 @@ $(document).ready(function() {
     { "title": "Email", "targets": 4 },
     { "title": "PerfilUsuario", "targets": 5 },
     { "title": "Estado", "targets": 6 },
+    { "title": "Opción", "targets": 7 },
   ]
     } );
 } );
 
-            /*     Swal.fire({
+
+
+function agregarUsuario(){
+
+}
+
+/*
+                Swal.fire({
              title: 'Agregar usuario',
              html: `<input type="text" id="usuario" class="swal2-input" placeholder="ej: usuario31">
              <input type="text" id="nombres" class="swal2-input" placeholder="ej: Feliper Andres">
@@ -180,8 +188,8 @@ $(document).ready(function() {
              cancelButton: 'Volver'
              )}
              
+         */    
              
-             */
 
         </script>
 
