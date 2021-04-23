@@ -5,9 +5,14 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
+
     <head>
+
         <meta charset="UTF-8">
+
         <title></title>
+
+
 
         <script type="text/javascript"  src="../JQuery/JQuery.js"></script>  <!--  este js funciona bien -->
   <!--<script language="JavaScript"  src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>  este es el CDN de jquery-->
@@ -19,7 +24,19 @@ and open the template in the editor.
 
 
 
+        <style>
 
+
+            header{
+                background-color: #008000;
+            }
+
+            #TituloMantenedor{
+                background-color: #008000;
+            }
+
+
+        </style>
 
 
     </head>
@@ -30,36 +47,61 @@ and open the template in the editor.
         require_once("../model/Data.php");
         require_once("../model/Usuario.php");
         require_once("../model/Perfil.php");
+        
+                    $d = new Data();
+                    $listadoDeUsuarios = $d->listarUsuarios();
+                    
+                    
+                    $listadoDeUsuariosParaJSON = array();
+                    foreach($listadoDeUsuarios as $u){
+                    
+                        $estado="Activo";
+                        if($u->getEstado()==0){
+                            $estado="Inactivo";
+                        }
+                        $usuarioParaArray = array("id_usuario"=>$u->getId_usuario(), "Perfil Usuario"=>$u->getPerfil()->getPerfil(), "Usuario"=>$u->getUsuario(),"Nombres"=>$u->getNombres(),"APaterno"=>$u->getAp_paterno(),"AMaterno"=>$u->getAp_materno(),"Email"=>$u->getEmail(), "Estado"=>$estado);
+                        array_push($listadoDeUsuariosParaJSON, $usuarioParaArray);
+                    }
+                    
+
+                    
         ?>
 
-        
+        <header style="color:white">Test de conocimientos Marcelo Aranda</header>
 
-        <table id="tablaUsuarios" class="display">
-            <thead>
-               <tr>
-                <th>Usuario</th>
-                <th>Nombres</th>
-                <th>A.Paterno</th>
-                <th>A.Materno</th>
-                <th>Email</th>
-                <th>Perfil Usuario</th>
-                <th>Estado</th>
-                <th>Opciones</th>
-               </tr>
-            </thead>
-              <tbody>
-                <?php
-                $d = new Data();
-                $listadoDeUsuarios = $d->listarUsuarios();
 
-                foreach ($listadoDeUsuarios as $u) {
+        <div class="box">
+            <h2  id="TituloMantenedor" style="color:white"> Mantenedor </h2>
 
-                    $estado = "Inactivo";
-                    if ($u->getEstado() == 1) {
-                        $estado = "Activo";
-                    }
+            <table id="tablaUsuarios" class="display">
+<!--                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Nombres</th>
+                        <th>A.Paterno</th>
+                        <th>A.Materno</th>
+                        <th>Email</th>
+                        <th>Perfil Usuario</th>
+                        <th>Estado</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php/*    
+                   
+                    $d = new Data();
+                    $listadoDeUsuarios = $d->listarUsuarios();
 
-                    echo "</tr>
+                    foreach ($listadoDeUsuarios as $u) {
+
+                        $estado = "Inactivo";
+                        if ($u->getEstado() == 1) {
+                            $estado = "Activo";
+                        }
+                        
+                        
+                   
+                echo "</tr>
                 <td>" . $u->getUsuario() . "</td>
                 <td>" . $u->getNombres() . "</td>
                 <td>" . $u->getAp_paterno() . "</td>
@@ -70,60 +112,76 @@ and open the template in the editor.
                 <td> <button id='BotonModificar' value=" . $u->getId_usuario() . ">Modificar</button></td>
                 <td><button id='BotonEliminar' value=" . $u->getId_usuario() . ">Eliminar</button> </td>
                 </tr>";
-                }
-                ?>
-            </tbody> 
-        </table>
+                    }
+                   */ ?>
+                </tbody> 
+            </table>
+            <br>
+        </div>
 
-
-       
-
-        <br>
-
-
-        
-                <script>
-
-
-            
-            
-
-        
+--> 
+     
 
 
 
-function agregarUsuario() {
-  Swal.fire('Any fool can use a computer')
-}
+        <script>
 
 
-            
-            $(document).ready(function () {
-            $('#tablaUsuarios').DataTable();
-            });
-            
-       /*     Swal.fire({
-            title: 'Agregar usuario',
-                    html: `<input type="text" id="usuario" class="swal2-input" placeholder="ej: usuario31">
-                    <input type="text" id="nombres" class="swal2-input" placeholder="ej: Feliper Andres">
-                    <input type="text" id="a_paterno" class="swal2-input" placeholder="ej: Zaldivar">
-                    <input type="text" id="a_materno" class="swal2-input" placeholder="ej: Norambuena">
-                    <input type="text" id="email" class="swal2-input" placeholder="ej: nmbn@gmail.com">
-                    <select id="cmbPerfil" name="cmbPerfil" >
-                      <option value="1">Administrador</option>
-                      <option value="2">Usuario normal</option>
-                      <option value="3">Supervisor</option>
-                    </select>
-                    <select id="cmbEstado" name="cmbEstado" >
-                      <option value="1">Activo</option>
-                      <option value="2">Inactivo</option>
-                    </select>`,
-                    confirmButtonText: 'Guardar',
-                    cancelButton: 'Volver'
-                    )}
+
+var dataSet =<?php echo json_encode($listadoDeUsuariosParaJSON); ?>;
+console.log(dataSet)
 
 
-*/
+
+ 
+
+$(document).ready(function() {
+    $('#tablaUsuarios').DataTable( {
+        data: dataSet,
+        columns: [
+            { data: "Usuario" },
+            { data: "Nombres" },
+            { data: "APaterno" },
+            { data: "AMaterno" },
+            { data: "Email" },
+            { data: "Perfil Usuario" },
+            { data: "Estado" },
+            { title: "Opción" }
+        ],
+          "columnDefs": [
+    { "title": "Usuario", "targets": 0 },
+    { "title": "Nombres", "targets": 1 },
+    { "title": "A.Paterno", "targets": 2 },
+    { "title": "A.Materno", "targets": 3 },
+    { "title": "Email", "targets": 4 },
+    { "title": "PerfilUsuario", "targets": 5 },
+    { "title": "Estado", "targets": 6 },
+  ]
+    } );
+} );
+
+            /*     Swal.fire({
+             title: 'Agregar usuario',
+             html: `<input type="text" id="usuario" class="swal2-input" placeholder="ej: usuario31">
+             <input type="text" id="nombres" class="swal2-input" placeholder="ej: Feliper Andres">
+             <input type="text" id="a_paterno" class="swal2-input" placeholder="ej: Zaldivar">
+             <input type="text" id="a_materno" class="swal2-input" placeholder="ej: Norambuena">
+             <input type="text" id="email" class="swal2-input" placeholder="ej: nmbn@gmail.com">
+             <select id="cmbPerfil" name="cmbPerfil" >
+             <option value="1">Administrador</option>
+             <option value="2">Usuario normal</option>
+             <option value="3">Supervisor</option>
+             </select>
+             <select id="cmbEstado" name="cmbEstado" >
+             <option value="1">Activo</option>
+             <option value="2">Inactivo</option>
+             </select>`,
+             confirmButtonText: 'Guardar',
+             cancelButton: 'Volver'
+             )}
+             
+             
+             */
 
         </script>
 
