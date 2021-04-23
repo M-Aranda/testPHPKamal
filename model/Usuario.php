@@ -13,7 +13,7 @@
  */
 class Usuario {
     private $id_usuario;
-    private $id_perfil;
+    private $perfil;
     private $usuario;
     private $clave;
     private $nombres;
@@ -23,9 +23,9 @@ class Usuario {
     private $estado;
     
     
-    public function __construct($id_usuario, $id_perfil, $usuario, $clave, $nombres, $ap_paterno, $ap_materno, $email, $estado) {
+    public function __construct($id_usuario, $perfil, $usuario, $clave, $nombres, $ap_paterno, $ap_materno, $email, $estado) {
         $this->id_usuario = $id_usuario;
-        $this->id_perfil = $id_perfil;
+        $this->perfil = $perfil;
         $this->usuario = $usuario;
         $this->clave = $clave;
         $this->nombres = $nombres;
@@ -39,8 +39,8 @@ public function getId_usuario() {
     return $this->id_usuario;
 }
 
-public function getId_perfil() {
-    return $this->id_perfil;
+public function getPerfil() {
+    return $this->$perfil;
 }
 
 public function getUsuario() {
@@ -75,8 +75,8 @@ public function setId_usuario($id_usuario) {
     $this->id_usuario = $id_usuario;
 }
 
-public function setId_perfil($id_perfil) {
-    $this->id_perfil = $id_perfil;
+public function setPerfil($perfil) {
+    $this->perfil = $perfil;
 }
 
 public function setUsuario($usuario) {

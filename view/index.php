@@ -16,9 +16,10 @@
 </head>
 <body>
     
-    <form action="#" method="post">
-    <input type="text" name="algo" id="algo" placeholder="Escriba algo :">
-    <input type="submit" value="Aceptar">
+    <form action="../controller/IniciarSesion.php" method="post">
+    <input type="text" name="nombre" id="nombre" placeholder="Nombre :">
+    <input type="password" name="clave" id="algo" placeholder="clave :">
+    <input type="submit" value="Login">
     </form>
 
 
