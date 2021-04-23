@@ -20,9 +20,9 @@ estado INT NOT NULL,
 FOREIGN KEY (id_perfil) REFERENCES PERFIL (id_perfil)
 );
 
-INSERT INTO PERFIL (perfil ) VALUES ('perfil 1');
-INSERT INTO PERFIL (perfil ) VALUES ('perfil 2');
-INSERT INTO PERFIL (perfil ) VALUES ('perfil 3');
+INSERT INTO PERFIL (perfil ) VALUES ('Administrador');
+INSERT INTO PERFIL (perfil ) VALUES ('Usuario normal');
+INSERT INTO PERFIL (perfil ) VALUES ('Supervisor');
 
 
 INSERT INTO USUARIO (id_perfil, usuario, clave, nombres, ap_paterno, ap_materno, email, estado) VALUES (1 , 'Mar', '123', 'Marcelo Andres', 'Aranda', 'Tatto', 'cheloz_20@hotmail.com', 1);
