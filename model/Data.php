@@ -48,8 +48,6 @@ class Data {
             $usuario = new Usuario($reg[0], $this->getPerfil($reg[1]), $usuario, $clave, $reg[4], $reg[5], $reg[6], $reg[7], $reg[8]);
         }
 
-
-
         return $usuario;
     }
 
@@ -62,14 +60,29 @@ class Data {
 
         while ($reg = $rs->fetch_array()) {
 
-          
+
             $usuario = new Usuario($reg[0], $this->getPerfil($reg[1]), $reg[2], $reg[3], $reg[4], $reg[5], $reg[6], $reg[7], $reg[8]);
             $usuarios[] = $usuario;
         }
 
-    
 
         return $usuarios;
+    }
+
+    public function listarPerfiles() {
+        $query = "SELECT * FROM PERFIL";
+        $this->con->conectar();
+        $rs = $this->con->ejecutar($query);
+
+        $perfiles = array();
+
+        while ($reg = $rs->fetch_array()) {
+
+            $perfil = new Perfil($reg[0], $reg[1]);
+            $perfiles[] = $perfil;
+        }
+
+        return $perfiles;
     }
 
     public function crearUsuario($usuario) {
