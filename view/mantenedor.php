@@ -201,7 +201,7 @@ and open the template in the editor.
 
 
                     $(document).ready(function () {
-                        $('#tablaUsuarios').DataTable({
+                        var table = $('#tablaUsuarios').DataTable({
                             data: dataSet,
                             columns: [
                                 {data: "Usuario"},
@@ -227,6 +227,19 @@ and open the template in the editor.
                     });
 
 
+                    function cargarUsuarios() {
+                        $.ajax({
+                            type: "GET",
+                            url: "../controller/CargarUsuarios.php",
+                            dataType: "JSON",               
+                            success: function (response) {
+                                
+                                console.log(response)
+                            }
+
+                        });
+
+                    }
 
                     /*
                      * 
@@ -265,7 +278,8 @@ and open the template in the editor.
                             },
                             success: function (result) { //we got the response
                                 Swal.fire('Usuario agregado');
-                                alert(result);
+                                //alert(result);
+                                cargarUsuarios();
                             },
                             error: function (jqxhr, status, exception) {
                                 Swal.fire('Hubo un error');
