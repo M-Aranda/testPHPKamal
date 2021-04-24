@@ -328,15 +328,20 @@ and open the template in the editor.
                         });
 
                         $('#tablaUsuarios').on('click', '.btn-modificar', function (e) {
-                            var data = table.row( $(this).parents('tr') ).data();
+                            var data = table.row($(this).parents('tr')).data();
                             console.log(data);
+                            cargarUsuario(data );
                         });
 
 
                         // Handle click on "Delete" button
                         $('#tablaUsuarios').on('click', '.btn-eliminar', function (e) {
-                            var data = table.row( $(this).parents('tr') ).data();
+                            var data = table.row($(this).parents('tr')).data();
                             console.log(data);
+                            parsedData = JSON.parse(data);
+                            var usuario = parsedData[0].id_usuario;
+                            console.log(usuario);
+
                         });
 
 
@@ -349,8 +354,7 @@ and open the template in the editor.
 
 
 
-                    }
-                    ;
+                    };
 
                     /*
                      * 
@@ -400,12 +404,38 @@ and open the template in the editor.
 
 
 
+                    function cargarUsuario(id_usuario) {
+                        var idUsuarioABuscar = id_usuario;
+                        $.ajax({
+                            url: '../controller/CargarUsuario.php',
+                            type: 'POST',
+                            data: {
+                                'id_usuario': idUsuarioABuscar
+                            },
+                            success: function (result) { //we got the response
+                              //console.log(result);
+                              return result;
+                            },
+                            error: function (jqxhr, status, exception) {
+                               
+                            }
+                        })
+
+                    }
+
+
                     function eliminarUsuario() {
 
-                    }
-                    function modificarUsuario() {
 
                     }
+
+                    function modificarUsuario() {
+                        cargarUsuario();
+
+                    }
+
+
+
 
 
                 </script>

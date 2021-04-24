@@ -50,6 +50,22 @@ class Data {
 
         return $usuario;
     }
+    
+        public function getUsuarioAAlterar($id_usuario) {
+        $query = "SELECT * from USUARIO WHERE id_usuario ='" . $id_usuario . "'";
+
+        $this->con->conectar();
+        
+        $rs = $this->con->ejecutar($query);
+
+        $usuario = null;
+
+        if ($reg = $rs->fetch_array()) {
+            $usuario = new Usuario($reg[0], $this->getPerfil($reg[1]), $reg[2], $reg[3], $reg[4], $reg[5], $reg[6], $reg[7], $reg[8]);
+        }
+
+        return $usuario;
+    }
 
     public function listarUsuarios() {
         $query = "SELECT * FROM USUARIO";
@@ -96,7 +112,7 @@ class Data {
     }
 
     public function eliminarUsuario($id_usuario) {
-        $query = "DELETE FROM USUARIO WHERE id_usuario = '$id_usuario'";
+        $query = "DELETE FROM USUARIO WHERE id_usuario = ' . $id_usuario) . '";
         $this->usarConexion($query);
     }
 
