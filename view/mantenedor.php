@@ -130,7 +130,7 @@ and open the template in the editor.
                     <div class="modal-body">
 
                         <h5>Usuario:</h5>
-                        <input type="text" id="editar_usuario" class="swal2-input" placeholder="ej: usuario31">
+                        <input type="text" id="editar_usuario" class="swal2-input" placeholder="ej: usuario31" disabled="true">
 
                         <h5>Nombres:</h5>
                         <input type="text" id="editar_nombres" class="swal2-input" placeholder="ej: Feliper Andres">
@@ -173,27 +173,27 @@ and open the template in the editor.
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">EliminarUsuario</h4>
+                        <h4 class="modal-title">Eliminar Usuario</h4>
                     </div>
                     <div class="modal-body">
 
                         <h5>Usuario:</h5>
-                        <input type="text" id="eliminar_usuario" class="swal2-input" placeholder="ej: usuario31">
+                        <input type="text" id="eliminar_usuario" class="swal2-input" placeholder="ej: usuario31" disabled="true">
 
                         <h5>Nombres:</h5>
-                        <input type="text" id="eliminar_nombres" class="swal2-input" placeholder="ej: Feliper Andres">
+                        <input type="text" id="eliminar_nombres" class="swal2-input" placeholder="ej: Feliper Andres" disabled="true">
 
                         <h5>A.Paterno</h5>
-                        <input type="text" id="eliminar_a_paterno" class="swal2-input" placeholder="ej: Zaldivar">
+                        <input type="text" id="eliminar_a_paterno" class="swal2-input" placeholder="ej: Zaldivar" disabled="true">
 
                         <h5>A.Materno</h5>
-                        <input type="text" id="eliminar_a_materno" class="swal2-input" placeholder="ej: Norambuena">
+                        <input type="text" id="eliminar_a_materno" class="swal2-input" placeholder="ej: Norambuena" disabled="true">
 
                         <h5>Email:</h5>
-                        <input type="text" id="eliminar_email" class="swal2-input" placeholder="ej: nmbn@gmail.com">
+                        <input type="text" id="eliminar_email" class="swal2-input" placeholder="ej: nmbn@gmail.com" disabled="true">
 
                         <h5>Perfil:</h5>
-                        <select id="eliminarPerfil" name="seleccionarPerfil" >
+                        <select id="eliminarPerfil" name="seleccionarPerfil" disabled="true">
                             <?php
                             foreach ($listadoDePerfiles as $p) {
                                 echo "<option value=" . $p->getId_perfil() . ">" . $p->getPerfil() . "</option>";
@@ -201,7 +201,7 @@ and open the template in the editor.
                             ?>                            
                         </select>
                         <h5>Estado:</h5>
-                        <select id="eliminar" name="seleccionarEstado" >
+                        <select id="eliminar" name="seleccionarEstado" disabled="true">
                             <option value="1">Activo</option>
                             <option value="0">Inactivo</option>
                         </select>    
@@ -227,6 +227,7 @@ and open the template in the editor.
             <a href="index.php"><button>Cerrar aplicación</button></a>
             <br>
 
+  <!--
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modificarUsuarioModal">Modificar usuario</button>
             <br>
             <br>
@@ -234,7 +235,7 @@ and open the template in the editor.
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#eliminarUsuarioModal">Eliminar usuario</button>
             <br>
             <br>
-
+-->
 
             <table id="tablaUsuarios" class="display">
 <!--                <thead>
@@ -311,8 +312,8 @@ and open the template in the editor.
                                     "targets": -1,
                                     "data": null,
                                     "defaultContent":
-                                            '<button value="id_usuario" class="btn-modificar" type="button">Modificar</button>'
-                                            + '<button "id_usuario" class="btn-eliminar"  type="button">Eliminar</button>'
+                                            '<button type="button" value="id_usuario" class="btn-modificar" data-toggle="modal" data-target="#modificarUsuarioModal">Modificar</button>'
+                                            + '<button type="button" value="id_usuario" class="btn-eliminar" data-toggle="modal" data-target="#eliminarUsuarioModal">Eliminar</button>'
                                 }
                             ],
                             "columnDefs": [
