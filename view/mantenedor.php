@@ -105,7 +105,6 @@ and open the template in the editor.
                             }
                             ?>                            
                         </select>
-
                         <h5>Estado:</h5>
                         <select id="seleccionarEstado" name="seleccionarEstado" >
                             <option value="1">Activo</option>
@@ -120,9 +119,100 @@ and open the template in the editor.
             </div>
         </div>
 
+        <div id="modificarUsuarioModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Editar Usuario</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <h5>Usuario:</h5>
+                        <input type="text" id="editar_usuario" class="swal2-input" placeholder="ej: usuario31">
+
+                        <h5>Nombres:</h5>
+                        <input type="text" id="editar_nombres" class="swal2-input" placeholder="ej: Feliper Andres">
+
+                        <h5>A.Paterno</h5>
+                        <input type="text" id="editar_a_paterno" class="swal2-input" placeholder="ej: Zaldivar">
+
+                        <h5>A.Materno</h5>
+                        <input type="text" id="editar_a_materno" class="swal2-input" placeholder="ej: Norambuena">
+
+                        <h5>Email:</h5>
+                        <input type="text" id="editar_email" class="swal2-input" placeholder="ej: nmbn@gmail.com">
+
+                        <h5>Perfil:</h5>
+                        <select id="editarPerfil" name="seleccionarPerfil" >
+                            <?php
+                            foreach ($listadoDePerfiles as $p) {
+                                echo "<option value=" . $p->getId_perfil() . ">" . $p->getPerfil() . "</option>";
+                            }
+                            ?>                            
+                        </select>
+                        <h5>Estado:</h5>
+                        <select id="editarEstado" name="seleccionarEstado" >
+                            <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                        </select>    
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" onclick="modificarUsuario()" >Guardar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
+        <div id="eliminarUsuarioModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">EliminarUsuario</h4>
+                    </div>
+                    <div class="modal-body">
 
+                        <h5>Usuario:</h5>
+                        <input type="text" id="eliminar_usuario" class="swal2-input" placeholder="ej: usuario31">
+
+                        <h5>Nombres:</h5>
+                        <input type="text" id="eliminar_nombres" class="swal2-input" placeholder="ej: Feliper Andres">
+
+                        <h5>A.Paterno</h5>
+                        <input type="text" id="eliminar_a_paterno" class="swal2-input" placeholder="ej: Zaldivar">
+
+                        <h5>A.Materno</h5>
+                        <input type="text" id="eliminar_a_materno" class="swal2-input" placeholder="ej: Norambuena">
+
+                        <h5>Email:</h5>
+                        <input type="text" id="eliminar_email" class="swal2-input" placeholder="ej: nmbn@gmail.com">
+
+                        <h5>Perfil:</h5>
+                        <select id="eliminarPerfil" name="seleccionarPerfil" >
+                            <?php
+                            foreach ($listadoDePerfiles as $p) {
+                                echo "<option value=" . $p->getId_perfil() . ">" . $p->getPerfil() . "</option>";
+                            }
+                            ?>                            
+                        </select>
+                        <h5>Estado:</h5>
+                        <select id="eliminar" name="seleccionarEstado" >
+                            <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                        </select>    
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" onclick="eliminarUsuario()" >Eliminar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 
@@ -137,6 +227,13 @@ and open the template in the editor.
             <a href="index.php"><button>Cerrar aplicación</button></a>
             <br>
 
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modificarUsuarioModal">Modificar usuario</button>
+            <br>
+            <br>
+
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#eliminarUsuarioModal">Eliminar usuario</button>
+            <br>
+            <br>
 
 
             <table id="tablaUsuarios" class="display">
@@ -199,9 +296,8 @@ and open the template in the editor.
                     //console.log(dataSet);
 
 
-
                     $(document).ready(function () {
-                        var table = $('#tablaUsuarios').DataTable({
+                        $('#tablaUsuarios').DataTable({
                             data: dataSet,
                             columns: [
                                 {data: "Usuario"},
@@ -228,15 +324,11 @@ and open the template in the editor.
 
 
                     function cargarUsuarios() {
-                        $.ajax({
-                            type: "GET",
-                            url: "../controller/CargarUsuarios.php",
-                            dataType: "JSON",               
-                            success: function (response) {
-                                
-                                console.log(response)
-                            }
-
+                        var datatable = $('#tablaUsuarios').DataTable();
+                        $.get('../controller/CargarUsuarios.php', function (newDataArray) {
+                            datatable.clear();
+                            datatable.rows.add(newDataArray);
+                            datatable.draw(false);
                         });
 
                     }
@@ -285,13 +377,16 @@ and open the template in the editor.
                                 Swal.fire('Hubo un error');
                             }
                         })
-
-
-
-
                     }
 
 
+
+                    function eliminarUsuario() {
+
+                    }
+                    function modificarUsuario() {
+
+                    }
 
 
                 </script>
