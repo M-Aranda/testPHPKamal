@@ -133,7 +133,10 @@ and open the template in the editor.
             <br>
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#agregarUsuarioModal">Agregar usuario</button>
             <br>
+            <br>
             <a href="index.php"><button>Cerrar aplicación</button></a>
+            <br>
+
 
 
             <table id="tablaUsuarios" class="display">
@@ -172,6 +175,7 @@ and open the template in the editor.
                   <td>" . $u->getEmail() . "</td>
                   <td>" . $u->getPerfil()->getPerfil() . "</td>
                   <td>" . $estado . "</td>
+
                   <td> <button id='BotonModificar' value=" . $u->getId_usuario() . ">Modificar</button></td>
                   <td><button id='BotonEliminar' value=" . $u->getId_usuario() . ">Eliminar</button> </td>
                   </tr>";
@@ -217,7 +221,7 @@ and open the template in the editor.
                                 {"title": "Email", "targets": 4},
                                 {"title": "PerfilUsuario", "targets": 5},
                                 {"title": "Estado", "targets": 6},
-                                {"title": "Opción", "targets": 7},
+                                {"title": "Opción", "targets": 7}
                             ]
                         });
                     });
@@ -257,7 +261,7 @@ and open the template in the editor.
                             url: '../controller/AgregarUsuario.php',
                             type: 'POST',
                             data: {
-                               'id_perfil': perfil, 'usuario': usuario, 'clave': "123", 'nombres': nombres, 'ap_paterno': aPaterno, 'ap_materno': aMaterno, 'email': email, 'estado': estado
+                                'id_perfil': perfil, 'usuario': usuario, 'clave': "123", 'nombres': nombres, 'ap_paterno': aPaterno, 'ap_materno': aMaterno, 'email': email, 'estado': estado
                             },
                             success: function (result) { //we got the response
                                 Swal.fire('Usuario agregado');
