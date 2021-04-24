@@ -10,8 +10,8 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
-        <?php
-        // put your code here
-        ?>
+
+        <h1>No ingresó los datos correctos</h1>
+        <a href="index.php"><button>Volver</button></a>
     </body>
 </html>

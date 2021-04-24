@@ -133,6 +133,7 @@ and open the template in the editor.
             <br>
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#agregarUsuarioModal">Agregar usuario</button>
             <br>
+            <a href="index.php"><button>Cerrar aplicación</button></a>
 
 
             <table id="tablaUsuarios" class="display">
@@ -191,7 +192,7 @@ and open the template in the editor.
 
 
                     var dataSet =<?php echo json_encode($listadoDeUsuariosParaJSON); ?>;
-                    console.log(dataSet);
+                    //console.log(dataSet);
 
 
 
