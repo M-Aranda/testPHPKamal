@@ -297,7 +297,7 @@ and open the template in the editor.
 
 
                     $(document).ready(function () {
-                        $('#tablaUsuarios').DataTable({
+                        var table = $('#tablaUsuarios').DataTable({
                             data: dataSet,
                             columns: [
                                 {data: "Usuario"},
@@ -307,7 +307,13 @@ and open the template in the editor.
                                 {data: "Email"},
                                 {data: "Perfil Usuario"},
                                 {data: "Estado"},
-                                {data: "id_usuario"}
+                                {
+                                    "targets": -1,
+                                    "data": null,
+                                    "defaultContent":
+                                            '<button value="id_usuario" class="btn-modificar" type="button">Modificar</button>'
+                                            + '<button "id_usuario" class="btn-eliminar"  type="button">Eliminar</button>'
+                                }
                             ],
                             "columnDefs": [
                                 {"title": "Usuario", "targets": 0},
@@ -317,21 +323,34 @@ and open the template in the editor.
                                 {"title": "Email", "targets": 4},
                                 {"title": "PerfilUsuario", "targets": 5},
                                 {"title": "Estado", "targets": 6},
-                                {"title": "Opción", "targets": 7}
+                                {"title": "Opción", "targets": 7},
                             ]
                         });
+
+                        $('#tablaUsuarios').on('click', '.btn-modificar', function (e) {
+                            var data = table.row( $(this).parents('tr') ).data();
+                            console.log(data);
+                        });
+
+
+                        // Handle click on "Delete" button
+                        $('#tablaUsuarios').on('click', '.btn-eliminar', function (e) {
+                            var data = table.row( $(this).parents('tr') ).data();
+                            console.log(data);
+                        });
+
+
                     });
 
 
+
+
                     function cargarUsuarios() {
-                        var datatable = $('#tablaUsuarios').DataTable();
-                        $.get('../controller/CargarUsuarios.php', function (newDataArray) {
-                            datatable.clear();
-                            datatable.rows.add(newDataArray);
-                            datatable.draw(false);
-                        });
+
+
 
                     }
+                    ;
 
                     /*
                      * 

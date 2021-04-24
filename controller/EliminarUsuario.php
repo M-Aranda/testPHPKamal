@@ -1,8 +1,15 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+require_once("../model/Data.php");
+require_once("../model/Usuario.php");
 
+$data = new Data();
+
+
+$id_usuario = isset($_REQUEST['id_usuario'])?$_REQUEST['id_usuario']:"";
+
+
+
+$data->eliminarUsuario($id_usuario);
+
+?>
