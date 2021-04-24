@@ -129,6 +129,8 @@ and open the template in the editor.
                     </div>
                     <div class="modal-body">
 
+
+
                         <h5>Usuario:</h5>
                         <input type="text" id="editar_usuario" class="swal2-input" placeholder="ej: usuario31" disabled="true">
 
@@ -227,15 +229,15 @@ and open the template in the editor.
             <a href="index.php"><button>Cerrar aplicación</button></a>
             <br>
 
-  <!--
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modificarUsuarioModal">Modificar usuario</button>
-            <br>
-            <br>
-
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#eliminarUsuarioModal">Eliminar usuario</button>
-            <br>
-            <br>
--->
+            <!--
+                      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modificarUsuarioModal">Modificar usuario</button>
+                      <br>
+                      <br>
+          
+                      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#eliminarUsuarioModal">Eliminar usuario</button>
+                      <br>
+                      <br>
+            -->
 
             <table id="tablaUsuarios" class="display">
 <!--                <thead>
@@ -312,7 +314,7 @@ and open the template in the editor.
                                     "targets": -1,
                                     "data": null,
                                     "defaultContent":
-                                            '<button type="button" value="id_usuario" class="btn-modificar" data-toggle="modal" data-target="#modificarUsuarioModal">Modificar</button>'
+                                            '<button onclick="modificarUsuario()" type="button" value="id_usuario" class="btn-modificar" data-toggle="modal" data-target="#modificarUsuarioModal">Modificar</button>'
                                             + '<button type="button" value="id_usuario" class="btn-eliminar" data-toggle="modal" data-target="#eliminarUsuarioModal">Eliminar</button>'
                                 }
                             ],
@@ -330,8 +332,13 @@ and open the template in the editor.
 
                         $('#tablaUsuarios').on('click', '.btn-modificar', function (e) {
                             var data = table.row($(this).parents('tr')).data();
-                            console.log(data);
-                            cargarUsuario(data );
+                           // console.log(data);
+                            var usuario = cargarUsuario(data);
+
+
+
+
+
                         });
 
 
@@ -341,7 +348,7 @@ and open the template in the editor.
                             console.log(data);
                             parsedData = JSON.parse(data);
                             var usuario = parsedData[0].id_usuario;
-                            console.log(usuario);
+                            //console.log(usuario);
 
                         });
 
@@ -355,7 +362,8 @@ and open the template in the editor.
 
 
 
-                    };
+                    }
+                    ;
 
                     /*
                      * 
@@ -414,11 +422,11 @@ and open the template in the editor.
                                 'id_usuario': idUsuarioABuscar
                             },
                             success: function (result) { //we got the response
-                              //console.log(result);
-                              return result;
+                                //console.log(result);
+                                return result;
                             },
                             error: function (jqxhr, status, exception) {
-                               
+
                             }
                         })
 
@@ -431,9 +439,64 @@ and open the template in the editor.
                     }
 
                     function modificarUsuario() {
-                        cargarUsuario();
+                        /*
+                         var usuarioId = document.getElementById(editar_usuario);
+                         var nombres = document.getElementById(editar_nombres);
+                         var a_paterno = document.getElementById(editar_a_paterno);
+                         var a_materno = document.getElementById(editar_a_materno);
+                         var email = document.getElementById(editar_email);
+                         var perfil = document.getElementById(editarPerfil);
+                         var estado = document.getElementById(editarEstado);
+                         
+                         
+                         usuarioId.value = usuario.["id_usuario"];
+                         nombres.value = usuario.["Nombres"];
+                         a_paterno.value = usuario.["APaterno"];
+                         usuario.value = usuario.["Usuario"];
+                         a_materno.value = usuario.["AMaterno"];
+                         email.value = usuario.["Email"];
+                         perfil.value = usuario.["Perfil Usuario"];
+                         estado.value = usuario.["Estado"];
+                         */
+
+                        var perfilSeleccionado = document.getElementById('editarPerfil').value;
+                        var estadoSeleccionado = document.getElementById('editarEstado').value;
+
+                        var usuarioId = document.getElementById(editar_usuario);
+                        var nombres = document.getElementById(editar_nombres);
+                        var a_paterno = document.getElementById(editar_a_paterno);
+                        var a_materno = document.getElementById(editar_a_materno);
+                        var email = document.getElementById(editar_email);
+                        var perfil = document.getElementById('editarPerfil').value;
+                        var estado = document.getElementById('editarEstado').value;
+
+                        
+                  
+
+
+                        //var datos = {id_perfil: perfil, usuario: usuario, "clave": "123", nombres: nombres, ap_paterno: aPaterno, ap_materno: aMaterno, email: email, estado: estado};
+
+
+                        //console.log(datos);
+                        $.ajax({
+                            url: '../controller/EditarUsuario.php',
+                            type: 'POST',
+                            data: {
+                                'id_perfil': perfil, 'usuario': usuario, 'clave': "123", 'nombres': nombres, 'ap_paterno': aPaterno, 'ap_materno': aMaterno, 'email': email, 'estado': estado
+                            },
+                            success: function (result) { //we got the response
+                                Swal.fire('Usuario actualizado');
+                                //alert(result);
+                                cargarUsuarios();
+                            },
+                            error: function (jqxhr, status, exception) {
+                                Swal.fire('Hubo un error');
+                            }
+                        })
+
 
                     }
+
 
 
 
